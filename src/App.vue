@@ -1,9 +1,17 @@
-<script setup lang="ts"></script>
-
 <template>
-  <div>
-    <h1>HELLO WORLD</h1>
+  <div id="app">
+    <CryptoList />
   </div>
 </template>
 
-<style lang="scss"></style>
+<script lang="ts">
+import { defineComponent } from 'vue';
+import CryptoList from './components/CryptoList/CryptoList.vue';
+
+export default defineComponent({
+  name: 'App',
+  components: {
+    CryptoList,
+  },
+});
+</script>
