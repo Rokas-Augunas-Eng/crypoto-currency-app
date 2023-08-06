@@ -1,4 +1,4 @@
-# Chat-app
+# Crypto-currency-app
 
 ## Table of Contents
 
