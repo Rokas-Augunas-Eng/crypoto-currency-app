@@ -26,7 +26,8 @@ Second, run the development server:
 yarn dev
 ```
 
-To start the server (backend). Run the following. Need to change the directory and install dependencies.
+For the backend you have to navigate here https://coinmarketcap.com/ and create a developer account. The API key will be required for fetching data.
+To start the server (backend). Insert your API key and run the following:
 
 ```bash
 cd back-end
@@ -38,7 +39,7 @@ Open [http://http://127.0.0.1:5173](http://127.0.0.1:5173) with your browser to 
 
 ## Results
 
-Crypto currency table wil lbe loaded.
+Crypto currency table will be rendered.
 
 Desktop view
 
