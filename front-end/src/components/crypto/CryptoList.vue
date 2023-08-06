@@ -32,7 +32,7 @@ export default defineComponent({
     const errorMessage = ref();
 
     const tableHeaders: TableHeqaderProps[] = [
-      { name: '', isMobile: false },
+      { name: '', isMobile: true },
       { name: 'Crypto', isMobile: true },
       { name: 'Price', isMobile: false },
       { name: 'Volume 24 hours', isMobile: false },
