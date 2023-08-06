@@ -25,13 +25,13 @@ describe('TableItems', () => {
     expect(wrapper.find('.table-data:nth-child(2)').text()).toBe(items.name);
   });
 
-  it('displays the cryptocurrency price with 4 decimal places', () => {
+  it('displays the percentage change', () => {
     const wrapper = mount(TableItems, {
       propsData: { items },
     });
 
-    expect(
-      wrapper.find('.table-data.d-none.d-md-table-cell:nth-child(3)').text()
-    ).toBe(`$ ${items.quote.USD.price}`);
+    expect(wrapper.find('.table-data:nth-child(5)').text()).toBe(
+      `${items.quote.USD.percent_change_24h}%`
+    );
   });
 });

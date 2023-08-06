@@ -52,7 +52,7 @@ export default defineComponent({
   },
   methods: {
     getTableHeaderClasses(isMobile: boolean) {
-      return isMobile && 'd-none d-md-table-cell';
+      return !isMobile && 'd-none d-md-table-cell';
     },
   },
 });
