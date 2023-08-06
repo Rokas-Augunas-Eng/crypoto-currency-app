@@ -9,11 +9,11 @@
 
 ## General info
 
-A crypto currency app, which fecthes data from an API and displays the latests crypto currencies. The table shows the crypto icon, price volumen in the last 24 hours and percentage change. The app uses Vue.js and TypeScript.
+A crypto currency app, which fecthes data from an API and displays the latests crypto currencies. The table shows the crypto icon, price, volume traded in the last 24 hours and percentage change. The app uses Vue.js and TypeScript.
 
 ## Setup
 
-First cd into the repository fron-end and install dependencies, run the following in the terminal:
+First cd into the repository front-end and install dependencies, run the following in the terminal:
 
 ```bash
 cd front-end
@@ -46,7 +46,7 @@ Desktop view
 
 Mobile view
 
-![Screen Shot 2023-08-06 at 18 05 45](https://github.com/Rokas-Augunas-Eng/crypto-currency-app/assets/78915609/7e107a29-0d9e-4580-935b-ddadc852e071)
+![Screen Shot 2023-08-06 at 21 25 24](https://github.com/Rokas-Augunas-Eng/crypto-currency-app/assets/78915609/0a401b38-4d2b-4393-8220-e9617dc78491)
 
 ## Improvements
 
