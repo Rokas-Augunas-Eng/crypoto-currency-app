@@ -1,89 +1,82 @@
 <template>
   <Spinner v-if="loading" />
-  <FailedFetchMessage
-    v-else-if="cryptocurrencies.length === 0"
-    :custom-message="customMessage"
-  />
+  <FailedFetchMessage v-if="errorMessage" :custom-message="errorMessage" />
 
   <template v-if="!loading && cryptocurrencies.length > 0">
-    <CryptoTable :cryptocurrencies="cryptocurrencies" />
+    <Table :tableItems="cryptocurrencies" :tableHeaders="tableHeaders" />
   </template>
+
+  <Button v-if="showButton" :name="'Up'" :onClick="scrollToTop" />
 
   <Spinner v-if="loadingMoreData" />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue';
-import axios from 'axios';
-import type { Cryptocurrency } from '../interfaces/interfaces';
-import CryptoTable from '../table/CryptoTable.vue';
-import Spinner from '../utils/Spinner.vue';
+import { fetchCryptocurrencies } from '@/api/cryptoService';
+import { defineComponent, onMounted, ref } from 'vue';
+import Button from '../button/Button.vue';
+import type {
+  Cryptocurrency,
+  TableHeqaderProps,
+} from '../interfaces/interfaces';
+import Table from '../table/Table.vue';
 import FailedFetchMessage from '../utils/FetchFailedMessage.vue';
+import Spinner from '../utils/Spinner.vue';
+import { scrollToTop } from '../utils/scrollToTop';
+import { useScrollHandler } from './utils/useScrollHandler';
 
 export default defineComponent({
-  name: 'CryptoList',
-  props: {
-    limit: {
-      type: Number,
-      default: 20,
-    },
-    customMessage: {
-      type: String,
-      default: 'Sorry failed to load the crypto currency. Please try again',
-    },
-  },
-
-  setup(props) {
+  setup() {
     const cryptocurrencies = ref<Cryptocurrency[]>([]);
     const loading = ref(true);
-    const loadingMoreData = ref(false);
+    const errorMessage = ref();
 
-    const page = ref(1);
+    const tableHeaders: TableHeqaderProps[] = [
+      { name: '', isMobile: false },
+      { name: 'Crypto', isMobile: true },
+      { name: 'Price', isMobile: false },
+      { name: 'Volume 24 hours', isMobile: false },
+      { name: 'Change', isMobile: true },
+    ];
 
-    const fetchCryptocurrencies = async () => {
-      try {
-        const response = await axios.get<Cryptocurrency[]>(
-          `http://localhost:8000/latest?limit=${props.limit * page.value}`
-        );
-
-        cryptocurrencies.value = response.data;
-        loading.value = false;
-      } catch (error) {
-        loading.value = false;
+    const memoizedFetchCryptocurrenciesData = ref<() => Promise<void>>(
+      async () => {
+        try {
+          const data = await fetchCryptocurrencies(page.value);
+          cryptocurrencies.value = cryptocurrencies.value.concat(data);
+          loading.value = false;
+        } catch (error) {
+          errorMessage.value = error;
+          loading.value = false;
+        }
       }
-    };
-
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const bodyHeight = document.documentElement.scrollHeight;
-
-      if (scrollY + windowHeight >= bodyHeight && !loading.value) {
-        page.value++;
-        loadingMoreData.value = true;
-        fetchCryptocurrencies();
-      }
-    };
+    );
 
     onMounted(() => {
-      fetchCryptocurrencies();
-      window.addEventListener('scroll', handleScroll);
+      memoizedFetchCryptocurrenciesData.value();
     });
 
-    onBeforeUnmount(() => {
-      window.removeEventListener('scroll', handleScroll);
-    });
+    const { loadingMoreData, page, showButton } = useScrollHandler(
+      memoizedFetchCryptocurrenciesData.value
+    );
 
     return {
       cryptocurrencies,
       loading,
       loadingMoreData,
+      tableHeaders,
+      errorMessage,
+      page,
+      scrollToTop,
+      showButton,
     };
   },
   components: {
-    CryptoTable,
+    Table,
     Spinner,
     FailedFetchMessage,
+    Button,
   },
 });
 </script>
+../../utils/FetchFailedMessage.vue../../utils/Spinner.vue../../utils/scrollToTop../../interfaces/interfaces

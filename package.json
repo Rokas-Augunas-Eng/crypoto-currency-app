@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "run-p type-check build-only",
     "preview": "vite preview",
-    "test:unit": "vitest",
+    "test": "vitest --dom",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
@@ -30,10 +30,12 @@
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vue/eslint-config-prettier": "^8.0.0",
     "@vue/eslint-config-typescript": "^11.0.3",
-    "@vue/test-utils": "^2.4.1",
+    "@vue/test-utils": "^2.4.0-alpha.2",
     "@vue/tsconfig": "^0.4.0",
+    "add": "^2.0.6",
     "eslint": "^8.45.0",
     "eslint-plugin-vue": "^9.15.1",
+    "happy-dom": "^10.8.0",
     "jsdom": "^22.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.0.0",
@@ -41,7 +43,7 @@
     "sass-loader": "^13.3.2",
     "typescript": "~5.1.6",
     "vite": "^4.4.6",
-    "vitest": "^0.33.0",
+    "vitest": "^0.34.1",
     "vue-tsc": "^1.8.6"
   }
 }

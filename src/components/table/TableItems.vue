@@ -1,22 +1,22 @@
 <template>
   <tr>
     <th scope="row" class="table-data">
-      <img :src="crypto.logo" alt="Logo" class="crypto-logo" />
+      <img :src="items.logo" alt="Logo" class="crypto-logo" />
     </th>
-    <td class="table-data">{{ crypto.name }}</td>
+    <td class="table-data">{{ items.name }}</td>
 
     <td class="table-data d-none d-md-table-cell">
-      $ {{ crypto.quote.USD.price.toFixed(4) }}
+      $ {{ items.quote.USD.price.toFixed(4) }}
     </td>
     <td class="table-data d-none d-md-table-cell">
-      {{ crypto.quote.USD.volume_24h.toFixed(0) }}
+      {{ items.quote.USD.volume_24h.toFixed(0) }}
     </td>
 
     <td class="table-data">
       <span class="change-column">
         <component :is="getArrowComponent()" />
         <span class="percentage"
-          >{{ crypto.quote.USD.percent_change_24h.toFixed(2) }}%</span
+          >{{ items.quote.USD.percent_change_24h.toFixed(2) }}%</span
         >
       </span>
     </td>
@@ -48,25 +48,24 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue';
-import type { Cryptocurrency } from '../interfaces/interfaces';
 import ArrowUpIcon from '../icons/ArrowUpIcon.vue';
 import ArrowDownIcon from '..//icons/ArrowDownIcon.vue';
 
 export default defineComponent({
-  name: 'CryptoItem',
+  name: 'TableItems',
   components: {
     ArrowUpIcon,
     ArrowDownIcon,
   },
   props: {
-    crypto: {
-      type: Object as PropType<Cryptocurrency>,
+    items: {
+      type: Object as PropType<any>,
       required: true,
     },
   },
   methods: {
     getArrowComponent() {
-      return this.crypto.quote.USD.percent_change_24h < 0
+      return this.items.quote.USD.percent_change_24h < 0
         ? 'ArrowDownIcon'
         : 'ArrowUpIcon';
     },

@@ -13,3 +13,8 @@ export interface Cryptocurrency {
   logo: string;
   quote: Quote;
 }
+
+export interface TableHeqaderProps {
+  name: string;
+  isMobile: boolean;
+}
